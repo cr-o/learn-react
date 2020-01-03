@@ -1,6 +1,7 @@
 import React from 'react' // these are decoupled since you can render to non DOM environments, like iOS
 import ReactDom from 'react-dom'
 import './index.css'
+import Popular from './components/Popular'
 // Component
 // State
 // Lifecycle
@@ -9,8 +10,8 @@ import './index.css'
 class App extends React.Component{ // How to define a component
     render(){
         return ( // JSX that will become JavaScript invocations by Bable
-            <div>
-                Hello World!
+            <div className ='container'>
+                <Popular />
             </div>
         )
     }    
