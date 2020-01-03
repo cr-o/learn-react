@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 function LanguagesNav({selected, onUpdateLanguage}){
     const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python' ]
@@ -15,6 +16,11 @@ function LanguagesNav({selected, onUpdateLanguage}){
             ))}
         </ul>
     )
+}
+
+LanguagesNav.propTypes = {
+    selected: PropTypes.string.isRequired,
+    onUpdateLanguage: PropTypes.func.isRequired
 }
 
 export default class Popupar extends React.Component{
