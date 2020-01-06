@@ -29,7 +29,7 @@ export default class Popupar extends React.Component{
         super(props)
         this.state = {
             selectedLanguage: 'All',
-            repos : null,
+            repos : {},
             error: null
         }
         this.updateLanguage = this.updateLanguage.bind(this)
@@ -41,24 +41,29 @@ export default class Popupar extends React.Component{
     updateLanguage(selectedLanguage){
         this.setState({
             selectedLanguage,
-            error: null,
-            repos: null
+            error: null
         })
-        fetchPopularRepos(selectedLanguage)
-            .then((repos) => this.setState({
-                repos, 
-                error: null
-            }))
+        if(!this.state.repos[selectedLanguage]){
+            fetchPopularRepos(selectedLanguage)
+            .then((data)=>{
+                this.setState(({repos})=>({ // pass a function in set state because we are depending on the previous dtate
+                    repos: {
+                        ...repos, //merging what was previously there
+                        [selectedLanguage] : data
+                    }
+                }))
+            })
             .catch(()=>{
                 console.warn('Error fetching repos: ', error)
                 this.setState({
-                    error: 'There was an error fetching the repositories'
+                    error: `There was an error fetching the repositories`
                 })
             })
-        
+        }
     }
     isLoading(){
-        return this.state.repos == null && this.state.error === null
+        const { selectedLanguage, repos, error } = this.state
+        return !repos[selectedLanguage] && error === null // still fetching, error is nothing, then we are loading 
     }
     render(){
         const {selectedLanguage, repos, error} = this.state
@@ -69,7 +74,7 @@ export default class Popupar extends React.Component{
                 onUpdateLanguage={this.updateLanguage}/>
                 {this.isLoading() && <p>LOADING</p>}
                 {error && <p>{error}</p>}
-        {repos && <pre>{JSON.stringify(repos, null, 2)}</pre>}
+        {repos[selectedLanguage] && <pre>{JSON.stringify(repos[selectedLanguage], null, 2)}</pre>}
             </React.Fragment>
 
         )
