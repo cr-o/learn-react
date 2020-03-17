@@ -128,7 +128,7 @@ export default class Battle extends React.Component{
     }
     handleSubmit(id, player){
         this.setState({
-            [id]: player
+            [id]: player // ES6 computed property name. lets you have an expression to be computed as a property name
         })
     }
     handleReset(id){
