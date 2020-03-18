@@ -140,7 +140,21 @@ export default class Battle extends React.Component{
         const { playerOne, playerTwo, battle } = this.state
 
         if(battle === true){
-            return <Results playerOne={playerOne} playerTwo={playerTwo} />
+            return(
+                // we want to reset the state inside of Results UI (at button)
+                // so we define where the button lives, which is here, inside of Battle
+                // and pass a prop to where the function is going to be invoked, which is inside of Results (at button)
+                // the prop that we're passing is a function
+                <Results
+                    playerOne={playerOne}
+                    playerTwo={playerTwo}
+                    onReset={()=>this.setState({
+                        playerOne: null,
+                        playerTwo: null,
+                        battle: false
+                    })}
+                />
+            )
             // results will receive those players as props and then it will fetch the info from the gitHub API
         }
 

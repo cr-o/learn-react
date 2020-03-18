@@ -82,73 +82,88 @@ export default class Results extends React.Component {
             )
         }
         return(
-            <div className='grid space-around container-sm'>
-            {/* ----ABSTRACT THIS INTO CARD----
-                <h4 className='header-lg center-text'>
-                    {loser.score === winner.score ? 'Tie' : 'Loser'}
-                </h4>
-                <img
-                    className='avatar'
-                    src={loser.profile.avatar_url}
-                    alt={`Avatar for ${loser.profile.login}`}
-                />
-                <h4 className='center-text'>
-                    Score: {winner.score.toLocaleString()}
-                </h4>                    
-                <h2 className='center-text'>
-                    <a className='link' href={loser.profile.html_url}>
-                        {loser.profile.login}
-                    </a>
-                </h2> 
-            */}
-                <Card
-                    header={winner.score === loser.score ? 'Tie' : 'Winner'}
-                    subheader={`Score: ${winner.score.toLocaleString()}`}
-                    avatar={winner.profile.avatar_url}
-                    href={winner.profile.html_url}
-                    name={winner.profile.login}
-                >
-                {/* open Card tag up, and move the custom details in between the tags */}
-                    {/* <ul className='card-list'>
-                        <li>
-                            <FaUser color='rgb(239, 115, 115)' size={22}/>
-                        {winner.profile.name}
-                        </li>
-                        {winner.profile.location && (
+            <React.Fragment>
+                <div className='grid space-around container-sm'>
+                {/* ----ABSTRACT THIS INTO CARD----
+                    <h4 className='header-lg center-text'>
+                        {loser.score === winner.score ? 'Tie' : 'Loser'}
+                    </h4>
+                    <img
+                        className='avatar'
+                        src={loser.profile.avatar_url}
+                        alt={`Avatar for ${loser.profile.login}`}
+                    />
+                    <h4 className='center-text'>
+                        Score: {winner.score.toLocaleString()}
+                    </h4>                    
+                    <h2 className='center-text'>
+                        <a className='link' href={loser.profile.html_url}>
+                            {loser.profile.login}
+                        </a>
+                    </h2> 
+                */}
+                    <Card
+                        header={winner.score === loser.score ? 'Tie' : 'Winner'}
+                        subheader={`Score: ${winner.score.toLocaleString()}`}
+                        avatar={winner.profile.avatar_url}
+                        href={winner.profile.html_url}
+                        name={winner.profile.login}
+                    >
+                    {/* open Card tag up, and move the custom details in between the tags */}
+                        {/* <ul className='card-list'>
                             <li>
-                                <FaCompass color='rgb(144, 115, 255)' size={22}/>
-                                {winner.profile.location}
+                                <FaUser color='rgb(239, 115, 115)' size={22}/>
+                            {winner.profile.name}
                             </li>
-                        )}
-                        {winner.profile.company && (
+                            {winner.profile.location && (
+                                <li>
+                                    <FaCompass color='rgb(144, 115, 255)' size={22}/>
+                                    {winner.profile.location}
+                                </li>
+                            )}
+                            {winner.profile.company && (
+                                <li>
+                                    <FaBriefcase color='#795548' size={22}/>
+                                    {winner.profile.company}
+                                </li>
+                            )}
                             <li>
-                                <FaBriefcase color='#795548' size={22}/>
-                                {winner.profile.company}
+                                <FaUsers color='rgb(129, 195, 245)' size={22}/>
+                                {winner.profile.followers.toLocaleString()} followers
                             </li>
-                        )}
-                        <li>
-                            <FaUsers color='rgb(129, 195, 245)' size={22}/>
-                            {winner.profile.followers.toLocaleString()} followers
-                        </li>
-                        <li>
-                            <FaUserFriends color='rgb(64, 183, 95)' size={22}/>
-                            {winner.profile.following.toLocaleString()} following
-                        </li>
-                    </ul> */}
-                    {/* putting above in its own component */}
-                    <ProfileList profile={winner.profile}/>
-                </Card>
+                            <li>
+                                <FaUserFriends color='rgb(64, 183, 95)' size={22}/>
+                                {winner.profile.following.toLocaleString()} following
+                            </li>
+                        </ul> */}
+                        {/* putting above in its own component */}
+                        <ProfileList profile={winner.profile}/>
+                    </Card>
 
-                   <Card
-                       header={loser.score === winner.score ? 'Tie' : 'Loser'}
-                       subheader={`Score: ${winner.score.toLocaleString()}`}
-                       avatar={loser.profile.avatar_url}
-                       href={loser.profile.html_url}
-                       name={loser.profile.login}
+                    <Card
+                        header={loser.score === winner.score ? 'Tie' : 'Loser'}
+                        subheader={`Score: ${winner.score.toLocaleString()}`}
+                        avatar={loser.profile.avatar_url}
+                        href={loser.profile.html_url}
+                        name={loser.profile.login}
                     >
                         <ProfileList profile={loser.profile}/>
-                   </Card>
-            </div>
+                    </Card>
+                </div>
+                <button
+                    onClick={this.props.onReset}
+                    className='btn dark-btn btn-space'
+                >
+                    Reset
+                </button>
+            </React.Fragment>
+            
         )
     }
+}
+
+Results.PropTypes = {
+    playerOne: PropTypes.string.isRequired,
+    playerTwo: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired
 }
