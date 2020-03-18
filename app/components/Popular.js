@@ -115,11 +115,12 @@ export default class Popupar extends React.Component{
         return(
             <React.Fragment>
                 <LanguagesNav
-                selected={selectedLanguage}
-                onUpdateLanguage={this.updateLanguage}/>
-                {this.isLoading() && <p>LOADING</p>}
-                {error && <p className='center-text error'>{error}</p>}
-        {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]} />}
+                    selected={selectedLanguage}
+                    onUpdateLanguage={this.updateLanguage}/>
+                    {this.isLoading() && <p>LOADING</p>}
+                    {error && <p className='center-text error'>{error}</p>}
+                    {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]}
+                />}
             </React.Fragment>
 
         )

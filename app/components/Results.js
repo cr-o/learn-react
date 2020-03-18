@@ -2,6 +2,42 @@ import React from 'react'
 import {battle} from '../utils/api' // named import since function wasn't a default export
 import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser } from 'react-icons/fa'
 import Card from './Card'
+import PropTypes from 'prop-types'
+
+function ProfileList({ profile }){
+    return(
+        <ul className='card-list'>
+            <li>
+                <FaUser color='rgb(239, 115, 115)' size={22}/>
+            {profile.name}
+            </li>
+            {profile.location && (
+                <li>
+                    <FaCompass color='rgb(144, 115, 255)' size={22}/>
+                    {profile.location}
+                </li>
+            )}
+            {profile.company && (
+                <li>
+                    <FaBriefcase color='#795548' size={22}/>
+                    {profile.company}
+                </li>
+            )}
+            <li>
+                <FaUsers color='rgb(129, 195, 245)' size={22}/>
+                {profile.followers.toLocaleString()} followers
+            </li>
+            <li>
+                <FaUserFriends color='rgb(64, 183, 95)' size={22}/>
+                {profile.following.toLocaleString()} following
+            </li>
+        </ul>
+    )
+}
+
+ProfileList.PropTypes = {
+    profile: PropTypes.object.isRequired
+}
 
 export default class Results extends React.Component {
     constructor(props) {
@@ -73,7 +109,7 @@ export default class Results extends React.Component {
                     name={winner.profile.login}
                 >
                 {/* open Card tag up, and move the custom details in between the tags */}
-                    <ul className='card-list'>
+                    {/* <ul className='card-list'>
                         <li>
                             <FaUser color='rgb(239, 115, 115)' size={22}/>
                         {winner.profile.name}
@@ -98,7 +134,9 @@ export default class Results extends React.Component {
                             <FaUserFriends color='rgb(64, 183, 95)' size={22}/>
                             {winner.profile.following.toLocaleString()} following
                         </li>
-                    </ul>
+                    </ul> */}
+                    {/* putting above in its own component */}
+                    <ProfileList profile={winner.profile}/>
                 </Card>
 
                    <Card
@@ -108,32 +146,7 @@ export default class Results extends React.Component {
                        href={loser.profile.html_url}
                        name={loser.profile.login}
                     >
-                        <ul className='card-list'>
-                            <li>
-                                <FaUser color='rgb(239, 115, 115)' size={22}/>
-                                {loser.profile.name}
-                            </li>
-                            {loser.profile.location && (
-                                <li>
-                                    <FaCompass color='rgb(144, 115, 255)' size={22}/>
-                                    {loser.profile.location}
-                                </li>
-                            )}
-                            {loser.profile.company && (
-                                <li>
-                                    <FaBriefcase color='#795548' size={22}/>
-                                    {loser.profile.company}
-                                </li>
-                            )}
-                            <li>
-                                <FaUsers color='rgb(129, 195, 245)' size={22}/>
-                                {loser.profile.followers.toLocaleString()} followers
-                            </li>
-                            <li>
-                                <FaUserFriends color='rgb(64, 183, 95)' size={22}/>
-                                {loser.profile.following.toLocaleString()} following
-                            </li>
-                        </ul>
+                        <ProfileList profile={loser.profile}/>
                    </Card>
             </div>
         )
