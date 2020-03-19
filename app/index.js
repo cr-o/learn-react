@@ -4,6 +4,7 @@ import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
 import { ThemeProvider } from './contexts/theme'
+import Nav from './components/Nav'
 // Component
 // State
 // Lifecycle
@@ -27,8 +28,11 @@ class App extends React.Component{ // How to define a component
             // need to stick method on object we're going to pass in (toggletheme) as value on the ThemeProvider component
             // wrapping entire app inside ThemePovider
             <ThemeProvider value={this.state}>
-                <div className ='container'>
-                    <Battle />
+                <div className={this.state.theme}>
+                    <div className ='container'>
+                        <Nav/>
+                        <Battle />
+                    </div>
                 </div>
             </ThemeProvider>
         )

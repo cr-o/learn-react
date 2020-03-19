@@ -17,6 +17,11 @@ li{
     margin: 0 auto;
     padding: 50px;
 }
+.dark{
+    color: #DADADA;
+    background: #1d2022;
+    min-height: 100%;
+}
 .flex-center{
     display: flex;
     justify-content: center;
