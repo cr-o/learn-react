@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withHover from './withHover'
+import Hover from './Hover'
 
 const styles = {
     container: {
@@ -24,17 +24,23 @@ const styles = {
     }
 }
 
-function Tooltip ({ text, children, hovering }){
+export default function Tooltip ({ text, children }){
     return (
-        <div style={styles.container}>
-            {hovering === true && <div style={styles.tooltip}>{text}</div>}
-            {children}
-        </div>
+        <Hover>
+            {/* children now is a function instead of a React element */}
+            {(hovering)=>( // we can name this whatever we want because we're being passed it as an argument to this function
+                <div style={styles.container}>
+                    {hovering === true && <div style={styles.tooltip}>{text}</div>}
+                    {children}
+                </div>
+            )}
+        </Hover>
     )
 }
 
 Tooltip.propTypes = {
     text: PropTypes.string.isRequired
+    // hovering: PropTypes.bool.isRequired
 }
 
 // higher order component is just a component
@@ -44,4 +50,4 @@ Tooltip.propTypes = {
 
 // Tooltip actually exports an invocation of withHover
 // and withHover renders a different component, WithHover
-export default withHover(Tooltip, 'hover') // second argument to avod naming collisions when using higher order components. this enables you to decide what props to pass to the component
+// export default withHover(Tooltip, 'hover') // second argument to avod naming collisions when using higher order components. this enables you to decide what props to pass to the component

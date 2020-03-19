@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default function withHover(Component, propName = 'hovering'){ // ES6 default parmeter
-    return class WithHover extends React.Component{
+    export default class Hover extends React.Component{ // turned into a class. Render Prop gets rid of middleman function.
         constructor(props){
             super(props)
             this.state = {
@@ -22,19 +21,20 @@ export default function withHover(Component, propName = 'hovering'){ // ES6 defa
             })
         }
         render(){
-            const props = {
-                [propName]: this.state.hovering, //ES6 computed property name
-                ...this.props // also spread all other props
-            }
+            //can get rid of this because consumer of this componetn can name this whatever they want
+            // const props = {
+            //     [propName]: this.state.hovering, //ES6 computed property name
+            //     ...this.props // also spread all other props
+            // }
             return (
                 <div
                     onMouseOver={this.mouseOver}
                     onMouseOut={this.mouseOut}
                 >
-                    <Component {...props}/>
+                    {this.props.children(this.state.hovering)}
+                    {/* <Component {...props}/> */}
                     {/* need to object spread this.props to the Component being rendered. else all the props being passed to WithHover will not pass through to the Compoment (eg. ToolTip) */}
                 </div>
             )
         }
     }
-}
