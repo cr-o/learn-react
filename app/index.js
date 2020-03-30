@@ -5,6 +5,7 @@ import Popular from './components/Popular'
 import Battle from './components/Battle'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 // Component
 // State
 // Lifecycle
@@ -27,14 +28,19 @@ class App extends React.Component{ // How to define a component
         return ( // JSX that will become JavaScript invocations by Bable
             // need to stick method on object we're going to pass in (toggletheme) as value on the ThemeProvider component
             // wrapping entire app inside ThemePovider
-            <ThemeProvider value={this.state}>
-                <div className={this.state.theme}>
-                    <div className ='container'>
-                        <Nav/>
-                        <Battle />
+            // also wrapping entire app inside Router. Router needs to pass any component and certain info about the route, like history and redirect and query strings. Router will use context to pass info
+            <Router>
+                <ThemeProvider value={this.state}>
+                    <div className={this.state.theme}>
+                        <div className ='container'>
+                            <Nav/>
+                            <Route exact path='/' component={Popular} />
+                            {/* need to tell webpack that if there are any requests, instead of trying to handle them like a server would, just redirect all requests to the index page. Then from there, the index page is going to load React router, which will handle it*/}
+                            <Route path='/battle' component={Battle} />
+                        </div>
                     </div>
-                </div>
-            </ThemeProvider>
+                </ThemeProvider>
+            </Router>
         )
     }    
 }
