@@ -3,6 +3,7 @@ import ReactDom from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
+import Results from './components/Results'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -36,7 +37,8 @@ class App extends React.Component{ // How to define a component
                             <Nav/>
                             <Route exact path='/' component={Popular} />
                             {/* need to tell webpack that if there are any requests, instead of trying to handle them like a server would, just redirect all requests to the index page. Then from there, the index page is going to load React router, which will handle it*/}
-                            <Route path='/battle' component={Battle} />
+                            <Route exact path='/battle' component={Battle} />
+                            <Route path='/battle/results' component={Results} />
                         </div>
                     </div>
                 </ThemeProvider>

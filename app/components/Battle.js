@@ -3,6 +3,7 @@ import { FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle } from 'react-icon
 import PropTypes from 'prop-types'
 import Results from './Results'
 import { ThemeConsumer } from  '../contexts/theme'
+import { Link } from 'react-router-dom'
 
 function Instructions(){
     return(
@@ -133,8 +134,7 @@ export default class Battle extends React.Component{
 
         this.state = {
             playerOne: null,
-            playerTwo: null,
-            battle: false
+            playerTwo: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -151,26 +151,26 @@ export default class Battle extends React.Component{
         })
     }
     render(){
-        const { playerOne, playerTwo, battle } = this.state
-
-        if(battle === true){
-            return(
-                // we want to reset the state inside of Results UI (at button)
-                // so we define where the button lives, which is here, inside of Battle
-                // and pass a prop to where the function is going to be invoked, which is inside of Results (at button)
-                // the prop that we're passing is a function
-                <Results
-                    playerOne={playerOne}
-                    playerTwo={playerTwo}
-                    onReset={()=>this.setState({
-                        playerOne: null,
-                        playerTwo: null,
-                        battle: false
-                    })}
-                />
-            )
-            // results will receive those players as props and then it will fetch the info from the gitHub API
-        }
+        const { playerOne, playerTwo } = this.state
+        // move out of state
+        // if(battle === true){
+        //     return(
+        //         // we want to reset the state inside of Results UI (at button)
+        //         // so we define where the button lives, which is here, inside of Battle
+        //         // and pass a prop to where the function is going to be invoked, which is inside of Results (at button)
+        //         // the prop that we're passing is a function
+        //         <Results
+        //             playerOne={playerOne}
+        //             playerTwo={playerTwo}
+        //             onReset={()=>this.setState({
+        //                 playerOne: null,
+        //                 playerTwo: null,
+        //                 battle: false
+        //             })}
+        //         />
+        //     )
+        //     // results will receive those players as props and then it will fetch the info from the gitHub API
+        // }
 
         return (
             <React.Fragment>
@@ -203,13 +203,17 @@ export default class Battle extends React.Component{
                         }
                     </div>
                     {/* we want to show the button when both playerOne and playerTwo are not null */}
+                    {/* change button to link */}
                     {playerOne && playerTwo && (
-                        <button
+                        <Link
                             className='btn dark-btn btn-space'
-                            onClick={()=>this.setState({battle: true})}
+                            to={{
+                                pathname: '/battle/results',
+                                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+                            }}
                         >
                             Battle
-                        </button>
+                        </Link>
                     )}
                 </div>
             </React.Fragment>
