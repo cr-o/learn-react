@@ -13,13 +13,7 @@ const styles = {
 }
 
 export default class Loading extends React.Component {
-    constructor(props){
-        super(props)
-
-        this.state = {
-            content: props.text
-        }
-    }
+    state = { content: this.props.text } // needs this since no longer in constructor
     componentDidMount(){
         const {speed, text} = this.props // destructure from props
         this.interval = window.setInterval(()=>{ // setInterval returns an ID value

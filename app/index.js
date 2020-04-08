@@ -13,17 +13,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // UI
 
 class App extends React.Component{ // How to define a component
-    constructor(props){
-        super(props)
-
-        this.state = {
-            theme: 'light',
-            toggleTheme: () => { // put this on the state object itself
-                this.setState(({ theme })=>({ // functional setState since it depends on previous state
-                    theme: theme === 'light' ? 'dark' : 'light'
-                }))
-            }  
-        }
+    state = {
+        theme: 'light',
+        toggleTheme: () => { // put this on the state object itself
+            this.setState(({ theme })=>({ // functional setState since it depends on previous state
+                theme: theme === 'light' ? 'dark' : 'light'
+            }))
+        }  
     }
     render(){
         return ( // JSX that will become JavaScript invocations by Bable

@@ -34,22 +34,18 @@ function Instructions(){
     )
 }
 
+// using classField instead
 class PlayerInput extends React.Component { // to get username from input field
     // render this inside Battle, pass it a prop
-    // whenever the form is submitted, the onSubmit function is invoked, passing the username 
-    constructor(props){
-        super(props);
-        this.state = {
-            username: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+    // whenever the form is submitted, the onSubmit function is invoked, passing the username
+    state = {
+        username: ''
     }
-    handleSubmit(event){
+    handleSubmit = (event) => {
         event.preventDefault() // because we don't want any of the normal browser events to take place 
         this.props.onSubmit(this.state.username); // this is how username is retrieved for player inside battle component
     }
-    handleChange(event){
+    handleChange = (event) => {
         this.setState({ // user will type something in input field, handleCHange is invoked by React, then get value form event and set state and rerender component, which changes value of input field
             username: event.target.value
         })
@@ -87,6 +83,60 @@ class PlayerInput extends React.Component { // to get username from input field
         )
     }
 }
+
+// class PlayerInput extends React.Component { // to get username from input field
+//     // render this inside Battle, pass it a prop
+//     // whenever the form is submitted, the onSubmit function is invoked, passing the username 
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             username: ''
+//         }
+//         this.handleSubmit = this.handleSubmit.bind(this)
+//         this.handleChange = this.handleChange.bind(this)
+//     }
+//     handleSubmit(event){
+//         event.preventDefault() // because we don't want any of the normal browser events to take place 
+//         this.props.onSubmit(this.state.username); // this is how username is retrieved for player inside battle component
+//     }
+//     handleChange(event){
+//         this.setState({ // user will type something in input field, handleCHange is invoked by React, then get value form event and set state and rerender component, which changes value of input field
+//             username: event.target.value
+//         })
+//     }
+//     render(){
+//         return (
+//             <ThemeConsumer>
+//                 {({ theme }) => (
+//                     <form className='column player' onSubmit={this.handleSubmit}>
+//                         {/* whenever this form is submitted, handleSubmit is going to be invoked */}
+//                         <label htmlFor = 'username' className='player-label'>
+//                             {this.props.label}
+//                         </label>
+//                         <div className='row player-inputs'>
+//                             <input
+//                                 type='text'
+//                                 id='username'
+//                                 className={`input-${theme}`}
+//                                 placeholder='github username'
+//                                 autoComplete='off'
+//                                 value={this.state.username}
+//                                 onChange={this.handleChange}
+//                             />
+//                             <button
+//                                 className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
+//                                 type='submit'
+//                                 disabled={!this.state.username}
+//                             >
+//                                 Submit
+//                             </button>
+//                         </div>
+//                     </form>
+//                 )}
+//             </ThemeConsumer>
+//         )
+//     }
+// }
 
 PlayerInput.propTypes = {
     onSubmit: PropTypes.func.isRequired,
@@ -129,23 +179,16 @@ PlayerPreview.propTypes = {
 }
 
 export default class Battle extends React.Component{
-    constructor(props){
-        super(props)
-
-        this.state = {
-            playerOne: null,
-            playerTwo: null
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleReset = this.handleReset.bind(this)
+    state = {
+        playerOne: null,
+        playerTwo: null
     }
-    handleSubmit(id, player){
+    handleSubmit = (id, player) => {
         this.setState({
             [id]: player // ES6 computed property name. lets you have an expression to be computed as a property name
         })
     }
-    handleReset(id){
+    handleReset = (id) => {
         this.setState({
             [id]: null
         })

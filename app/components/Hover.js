@@ -1,25 +1,9 @@
 import React from 'react'
 
     export default class Hover extends React.Component{ // turned into a class. Render Prop gets rid of middleman function.
-        constructor(props){
-            super(props)
-            this.state = {
-                hovering: false
-            }
-            this.mouseOver = this.mouseOver.bind(this)
-            this.mouseOut = this.mouseOut.bind(this)
-        }
-    
-        mouseOver(){
-            this.setState({
-                hovering: true
-            })
-        }
-        mouseOut(){
-            this.setState({
-                hovering: false
-            })
-        }
+        state = { hovering: false}
+        mouseOver = () => this.setState({ hovering: true })
+        mouseOut = () => this.setState({ hovering: false })
         render(){
             //can get rid of this because consumer of this componetn can name this whatever they want
             // const props = {

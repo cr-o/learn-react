@@ -48,15 +48,11 @@ ProfileList.propTypes = {
 }
 
 export default class Results extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            winner: null,
-            loser: null,
-            error: null,
-            loading: true
-        }
+    state = {
+        winner: null,
+        loser: null,
+        error: null,
+        loading: true
     }
     componentDidMount(){
         const {
@@ -151,7 +147,7 @@ export default class Results extends React.Component {
 
                     <Card
                         header={loser.score === winner.score ? 'Tie' : 'Loser'}
-                        subheader={`Score: ${winner.score.toLocaleString()}`}
+                        subheader={`Score: ${loser.score.toLocaleString()}`}
                         avatar={loser.profile.avatar_url}
                         href={loser.profile.html_url}
                         name={loser.profile.login}
