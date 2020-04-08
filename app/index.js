@@ -6,7 +6,7 @@ import Battle from './components/Battle'
 import Results from './components/Results'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Component
 // State
 // Lifecycle
@@ -35,10 +35,14 @@ class App extends React.Component{ // How to define a component
                     <div className={this.state.theme}>
                         <div className ='container'>
                             <Nav/>
-                            <Route exact path='/' component={Popular} />
-                            {/* need to tell webpack that if there are any requests, instead of trying to handle them like a server would, just redirect all requests to the index page. Then from there, the index page is going to load React router, which will handle it*/}
-                            <Route exact path='/battle' component={Battle} />
-                            <Route path='/battle/results' component={Results} />
+                            <Switch>
+                                <Route exact path='/' component={Popular} />
+                                {/* need to tell webpack that if there are any requests, instead of trying to handle them like a server would, just redirect all requests to the index page. Then from there, the index page is going to load React router, which will handle it*/}
+                                <Route exact path='/battle' component={Battle} />
+                                <Route path='/battle/results' component={Results} />
+                                {/* if you leave off a path, that route is always going to render. render allows you to inline some JSX. Because of the Switch, this only renders if none above matches */}
+                                <Route render={() => <h1>404</h1>} />
+                            </Switch>
                         </div>
                     </div>
                 </ThemeProvider>
